@@ -1,11 +1,32 @@
 import { ChevronRight, Book, Users, GraduationCap, Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
 import Logofsf from "../Logofsf.jpeg";
 import backgroundfsf from "/backgroundfsf.png";
+import { FaLinkedin, FaGithub } from 'react-icons/fa'; // Pour LinkedIn et GitHub
+import { IoMail } from 'react-icons/io5'; // Pour Gmail
+import { useEffect,useState } from 'react';
+import { useSpring, animated } from 'react-spring'; 
+import backgroundImage from "/backgrounfsf.jfif"; 
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 import bookImage from "../pages/open-book.png"; // Image du livre
+import developerImage from "/img3.jpg"; // Image du développeur
+import designerImage from "/img3.jpg";
+
 
 export function Home() {
+const [activeStudents, setActiveStudents] = useState(Math.floor(Math.random() * (30 - 10 + 1) + 10));
+
+// Animation avec react-spring
+const props = useSpring<{ number: number }>({ number: activeStudents, from: { number: 10 }, reset: true, reverse: activeStudents < 10 });
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setActiveStudents(Math.floor(Math.random() * (30 - 10 + 1) + 10));
+  }, 3000); 
+
+  return () => clearInterval(interval);
+}, [activeStudents]);
+
   return (
     <div className="min-h-screen bg-[#020817] text-white">
       {/* Header */}
@@ -30,46 +51,56 @@ export function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 text-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-black"></div>
+     
 
-        {/* Livre animé */}
-        <motion.div
-          initial={{ rotateY: 90, opacity: 0 }}
-          animate={{ rotateY: 0, opacity: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative w-32 h-32 mb-6"
-        >
-          <img src={bookImage} alt="Livre ouvert" className="w-full h-full object-contain" />
-        </motion.div>
+<section 
+  className="relative min-h-screen flex flex-col items-center justify-center pt-20 text-center"
+  style={{
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  }}
+>
+  <div className="absolute inset-0 bg-black/50"></div> {/* Ajoute un overlay pour la lisibilité */}
 
-        {/* Texte principal */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="z-10"
-        >
-          <h1 className="text-6xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-            Formation Sans Frontières
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl">
-            Votre passerelle vers l'excellence académique à l'ENSA d'Agadir
-          </p>
-        </motion.div>
+  {/* Livre animé */}
+  <motion.div
+    initial={{ rotateY: 90, opacity: 0 }}
+    animate={{ rotateY: 0, opacity: 1 }}
+    transition={{ duration: 1, ease: "easeOut" }}
+    className="relative w-32 h-32 mb-6"
+  >
+    <img src={bookImage} alt="Livre ouvert" className="w-full h-full object-contain" />
+  </motion.div>
 
-        {/* Bouton corrigé */}
-        <motion.a
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1.2, ease: "easeOut" }}
-          href="#courses"
-          className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-full text-lg font-semibold transition-all transform hover:scale-105"
-          style={{ pointerEvents: "auto", zIndex: 20 }}
-        >
-          Découvrir nos cours <ArrowRight className="ml-2 h-5 w-5" />
-        </motion.a>
-      </section>
+  {/* Texte principal */}
+  <motion.div
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay: 0.8 }}
+    className="z-10"
+  >
+    <h1 className="text-6xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+      Formation Sans Frontières
+    </h1>
+    <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl">
+      Votre passerelle vers l'excellence académique à l'ENSA d'Agadir
+    </p>
+  </motion.div>
+
+  {/* Bouton */}
+  <motion.a
+    initial={{ scale: 0.8, opacity: 0 }}
+    animate={{ scale: 1, opacity: 1 }}
+    transition={{ duration: 0.5, delay: 1.2, ease: "easeOut" }}
+    href="#courses"
+    className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-full text-lg font-semibold transition-all transform hover:scale-105"
+    style={{ pointerEvents: "auto", zIndex: 20 }}
+  >
+    Découvrir nos cours <ArrowRight className="ml-2 h-5 w-5" />
+  </motion.a>
+</section>
+
 
       {/* Stats Section */}
       <div className="bg-black/20 backdrop-blur-sm py-16 border-b border-white/10">
@@ -88,14 +119,18 @@ export function Home() {
 
       {/* Carte des Étudiants Actifs */}
       <div className="stats-card">
-        <div className="flex flex-col items-center justify-center text-center space-y-4">
-          <Users className="h-12 w-12 text-blue-400" />
-          <div>
-            <h3 className="stats-number">20+</h3>
-            <p className="text-lg text-gray-300 mt-2">Étudiants Actifs</p>
-          </div>
-        </div>
-      </div>
+              <div className="flex flex-col items-center justify-center text-center space-y-4">
+                <Users className="h-12 w-12 text-blue-400" />
+                <div>
+                  <h3 className="stats-number">
+                    <animated.span>
+                      {props.number.interpolate(n => Math.floor(n))}
+                    </animated.span>
+                  </h3>
+                  <p className="text-lg text-gray-300 mt-2">Étudiants Actifs</p>
+                </div>
+              </div>
+            </div>
 
       {/* Carte des Semestres */}
       <div className="stats-card">
@@ -163,8 +198,8 @@ export function Home() {
                   Spécialisations en génie (BTP, GI, GM, FID, GE)
                 </p>
                 <Link to="/engineering" className="text-blue-400 hover:text-blue-300 transition-colors">
-  Cycle d'Ingénieur
-  </Link>
+                Cycle d'Ingénieur
+                </Link>
               </div>
             </div>
 
@@ -194,7 +229,82 @@ export function Home() {
             </div>
           </div>
         </div>
-      </section>      
+      </section>
+          
+
+      
+
+      
+
+  
+      <div className="py-20 bg-black/20 border-t border-white/10">
+  {/* Titre Introduction */}
+  <div className="text-center mb-16">
+  <h2 className="relative text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent glow-title">
+            Contributeur du Site FSF
+          </h2>
+  </div>
+
+  <div className="flex flex-col md:flex-row justify-center items-center gap-20">
+    {/* Développeur */}
+    <div className="relative flex flex-col items-center text-center group max-w-[500px] px-4 py-4">
+      <div className="relative w-64 h-64 shadow-[0_0_30px_rgba(0,150,255,0.4)] rounded-full overflow-hidden border-[6px] border-transparent transition-all duration-500 group-hover:rotate-3 group-hover:scale-110 group-hover:border-blue-500">
+        <img src={developerImage} alt="Développeur Web" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div className="absolute inset-0 rounded-full border-[4px] border-blue-500 opacity-50 animate-pulse"></div>
+      </div>
+      <h3 className="mt-6 text-3xl font-bold text-white group-hover:text-blue-400 transition-all duration-300">
+        Lahoussine El Hossni
+      </h3>
+      <div className="flex gap-4 mt-4">
+        {/* Liens vers les réseaux sociaux */}
+        <a href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer">
+          <FaLinkedin className="text-blue-500 hover:text-blue-400 text-2xl" />
+        </a>
+        <a href="https://github.com/your-github" target="_blank" rel="noopener noreferrer">
+          <FaGithub className="text-gray-400 hover:text-gray-300 text-2xl" />
+        </a>
+        <a href="mailto:youremail@example.com">
+          <IoMail className="text-red-500 hover:text-red-400 text-2xl" />
+        </a>
+      </div>
+      <p className="mt-4 text-white text-lg text-justify">
+        Étudiant en développement logiciel et applicatif. Travaille par des technologies comme: HTML/CSS/JavaScript, Python,Java, et React. Passionné par la création d'applications interactives et la résolution de problèmes complexes grâce au code.
+      </p>
+    </div>
+
+    {/* Designer */}
+    <div className="relative flex flex-col items-center text-center group max-w-[500px] px-4 py-4">
+      <div className="relative w-64 h-64 shadow-[0_0_30px_rgba(255,215,0,0.4)] rounded-full overflow-hidden border-[6px] border-transparent transition-all duration-500 group-hover:-rotate-3 group-hover:scale-110 group-hover:border-yellow-400">
+        <img src={designerImage} alt="Designer" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div className="absolute inset-0 rounded-full border-[4px] border-yellow-400 opacity-50 animate-pulse"></div>
+      </div>
+      <h3 className="mt-6 text-3xl font-bold text-white group-hover:text-yellow-400 transition-all duration-300">
+        Mohamed Idlaassri
+      </h3>
+      <div className="flex gap-4 mt-4">
+        {/* Liens vers les réseaux sociaux */}
+        <a href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer">
+          <FaLinkedin className="text-blue-500 hover:text-blue-400 text-2xl" />
+        </a>
+        <a href="https://github.com/your-github" target="_blank" rel="noopener noreferrer">
+          <FaGithub className="text-gray-400 hover:text-gray-300 text-2xl" />
+        </a>
+        <a href="mailto:youremail@example.com">
+          <IoMail className="text-red-500 hover:text-red-400 text-2xl" />
+        </a>
+      </div>
+      <p className="mt-4 text-white text-lg text-justify">
+        Étudiant en développement logiciel et applicatif. Maitrise des technologies comme Java,python, HTML/CSS/js. Passionné par le design d'interfaces utilisateur et la création d'expériences visuelles intuitives.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+
       
       {/* Footer */}
       <footer id="contact" className="bg-black/30 backdrop-blur-sm border-t border-white/10 py-12">

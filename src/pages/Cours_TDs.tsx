@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, Book, FileText, TestTube, FilePlus, ArrowLeft } from 'lucide-react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
-import { moduleData } from '../data/modules'; // Assure-toi que les données sont correctement définies
+import { moduleData } from '../data/modules';
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 
@@ -84,9 +84,6 @@ export function CourseMaterials() {
   );
 
   const filterDetailsByType = (module: any) => {
-    console.log('Type sélectionné:', selectedType);
-    console.log('Fichiers disponibles:', files);
-
     if (!selectedType) return [];
 
     if (files.length > 0) {
