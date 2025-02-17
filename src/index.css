@@ -101,3 +101,18 @@ html {
   filter: blur(5px); /* Adoucit l'effet */
   pointer-events: none;
 }
+
+
+/* Pour mobile */
+@media (max-width: 768px) {
+  .background-image {
+    background-image: url('/mobilebackground.jfif');
+  }
+}
+
+/* Pour PC */
+@media (min-width: 769px) {
+  .background-image {
+    background-image: url('/backgrounfsf.jfif');
+  }
+}

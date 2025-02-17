@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'; // Importer useNavigate
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { moduleData } from '../data/modules';
+import backgroundpage from "/backgroundPages.jfif"; 
 
 export function AP2() {
   const { AP2: { S3, S4 } } = moduleData;
@@ -60,7 +61,11 @@ export function AP2() {
   );
 
   return (
-    <div className="min-h-screen bg-[#020817] text-white">
+    <div className="min-h-screen text-white" style={{
+      backgroundImage: `url(${backgroundpage})`, // Remplace par l'URL de ton image
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}>
       <Header />
       
       <main className="pt-24 pb-16">

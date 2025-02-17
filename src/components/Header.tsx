@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logofsf from "../Logofsf.jpeg";
+import logoFSF from "/logo.jfif"
 
 export function Header() {
   return (
@@ -7,7 +8,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-4">
-            <img src={Logofsf} alt="FSF Logo" className="h-10 w-10" />
+            <img src={logoFSF} alt="FSF Logo" className="h-10 w-10" />
             <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
               FSF ENSA Agadir
             </h1>

@@ -6,11 +6,12 @@ import { IoMail } from 'react-icons/io5'; // Pour Gmail
 import { useEffect,useState } from 'react';
 import { useSpring, animated } from 'react-spring'; 
 import backgroundImage from "/backgrounfsf.jfif"; 
+import mobile_img from "/mobilebackground.jfif"
+import logoFSF from "/logo.jfif"
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
-import bookImage from "../pages/open-book.png"; // Image du livre
 import developerImage from "/img3.jpg"; // Image du développeur
-import designerImage from "/img3.jpg";
+import designerImage from "/mohamed_img.jfif";
 
 
 export function Home() {
@@ -19,13 +20,31 @@ const [activeStudents, setActiveStudents] = useState(Math.floor(Math.random() * 
 // Animation avec react-spring
 const props = useSpring<{ number: number }>({ number: activeStudents, from: { number: 10 }, reset: true, reverse: activeStudents < 10 });
 
-useEffect(() => {
-  const interval = setInterval(() => {
-    setActiveStudents(Math.floor(Math.random() * (30 - 10 + 1) + 10));
-  }, 3000); 
+const [backgroundImage, setBackgroundImage] = useState("/backgrounfsf.jfif");
 
-  return () => clearInterval(interval);
-}, [activeStudents]);
+  useEffect(() => {
+    // Fonction pour vérifier la taille de l'écran
+    const updateBackgroundImage = () => {
+      if (window.innerWidth <= 768) { // Taille mobile ou tablette
+        setBackgroundImage("/mobilebackground.jfif"); // Image pour mobile
+      } else { // Taille PC
+        setBackgroundImage("/backgrounfsf.jfif"); // Image pour PC
+      }
+    };
+
+    // Appeler la fonction lors du premier rendu
+    updateBackgroundImage();
+
+    // Ajouter un événement pour mettre à jour l'image lors du redimensionnement de l'écran
+    window.addEventListener("resize", updateBackgroundImage);
+
+    // Nettoyage pour enlever l'événement lors du démontage du composant
+    return () => {
+      window.removeEventListener("resize", updateBackgroundImage);
+    };
+  }, []); // Se déclenche une seule fois lors du premier rendu
+
+
 
   return (
     <div className="min-h-screen bg-[#020817] text-white">
@@ -35,7 +54,7 @@ useEffect(() => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center space-x-4">
-            <img src={Logofsf} alt="FSF Logo" className="h-10 w-10" />
+            <img src={logoFSF} alt="FSF Logo" className="h-10 w-10" />
             <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
               FSF ENSA Agadir
             </h1>
@@ -50,57 +69,44 @@ useEffect(() => {
         </div>
       </header>
 
-      {/* Hero Section */}
-     
+      <section 
+      className="relative min-h-screen flex flex-col items-start justify-center pl-16 text-left"
+      style={{
+        backgroundImage: `url(${backgroundImage})`, // Utiliser l'état pour définir l'image
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        paddingTop: "130px", // Espace entre le haut et la section
+      }}
+    >
+      {/* Overlay pour lisibilité */}
+      <div className="absolute inset-0 bg-black/40"></div>  
 
-<section 
-  className="relative min-h-screen flex flex-col items-center justify-center pt-20 text-center"
-  style={{
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center"
-  }}
->
-  <div className="absolute inset-0 bg-black/50"></div> {/* Ajoute un overlay pour la lisibilité */}
+      {/* Contenu principal */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+        className="z-10 max-w-xl"
+      >
+        <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+          Formation Sans Frontières
+        </h1>
+        <p className="text-lg md:text-2xl text-gray-300 mt-4">
+          Votre passerelle vers l'excellence académique à l'ENSA d'Agadir
+        </p>
 
-  {/* Livre animé */}
-  <motion.div
-    initial={{ rotateY: 90, opacity: 0 }}
-    animate={{ rotateY: 0, opacity: 1 }}
-    transition={{ duration: 1, ease: "easeOut" }}
-    className="relative w-32 h-32 mb-6"
-  >
-    <img src={bookImage} alt="Livre ouvert" className="w-full h-full object-contain" />
-  </motion.div>
-
-  {/* Texte principal */}
-  <motion.div
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1, delay: 0.8 }}
-    className="z-10"
-  >
-    <h1 className="text-6xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-      Formation Sans Frontières
-    </h1>
-    <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl">
-      Votre passerelle vers l'excellence académique à l'ENSA d'Agadir
-    </p>
-  </motion.div>
-
-  {/* Bouton */}
-  <motion.a
-    initial={{ scale: 0.8, opacity: 0 }}
-    animate={{ scale: 1, opacity: 1 }}
-    transition={{ duration: 0.5, delay: 1.2, ease: "easeOut" }}
-    href="#courses"
-    className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-full text-lg font-semibold transition-all transform hover:scale-105"
-    style={{ pointerEvents: "auto", zIndex: 20 }}
-  >
-    Découvrir nos cours <ArrowRight className="ml-2 h-5 w-5" />
-  </motion.a>
-</section>
-
+        {/* Bouton animé */}
+        <motion.a
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          href="#courses"
+          className="mt-8 inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-lg font-semibold shadow-lg transform hover:scale-105 transition-all"
+        >
+          Découvrir nos cours <ArrowRight className="ml-2 h-5 w-5" />
+        </motion.a>
+      </motion.div>
+    </section>
 
       {/* Stats Section */}
       <div className="bg-black/20 backdrop-blur-sm py-16 border-b border-white/10">
@@ -240,67 +246,52 @@ useEffect(() => {
       <div className="py-20 bg-black/20 border-t border-white/10">
   {/* Titre Introduction */}
   <div className="text-center mb-16">
-  <h2 className="relative text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent glow-title">
-            Contributeur du Site FSF
-          </h2>
+    <h2 className="relative text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent glow-title">
+      Contributeurs du Site FSF
+    </h2>
   </div>
 
   <div className="flex flex-col md:flex-row justify-center items-center gap-20">
-    {/* Développeur */}
+    {/* Développeur Web */}
     <div className="relative flex flex-col items-center text-center group max-w-[500px] px-4 py-4">
       <div className="relative w-64 h-64 shadow-[0_0_30px_rgba(0,150,255,0.4)] rounded-full overflow-hidden border-[6px] border-transparent transition-all duration-500 group-hover:rotate-3 group-hover:scale-110 group-hover:border-blue-500">
         <img src={developerImage} alt="Développeur Web" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
         <div className="absolute inset-0 rounded-full border-[4px] border-blue-500 opacity-50 animate-pulse"></div>
+        {/* Titre sur l'image */}
+        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-sm font-semibold px-4 py-1 rounded-full shadow-lg">
+          Développeur du Site
+        </div>
       </div>
       <h3 className="mt-6 text-3xl font-bold text-white group-hover:text-blue-400 transition-all duration-300">
         Lahoussine El Hossni
       </h3>
-      <div className="flex gap-4 mt-4">
-        {/* Liens vers les réseaux sociaux */}
-        <a href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer">
-          <FaLinkedin className="text-blue-500 hover:text-blue-400 text-2xl" />
-        </a>
-        <a href="https://github.com/your-github" target="_blank" rel="noopener noreferrer">
-          <FaGithub className="text-gray-400 hover:text-gray-300 text-2xl" />
-        </a>
-        <a href="mailto:youremail@example.com">
-          <IoMail className="text-red-500 hover:text-red-400 text-2xl" />
-        </a>
-      </div>
       <p className="mt-4 text-white text-lg text-justify">
-        Étudiant en développement logiciel et applicatif. Travaille par des technologies comme: HTML/CSS/JavaScript, Python,Java, et React. Passionné par la création d'applications interactives et la résolution de problèmes complexes grâce au code.
+      Étudiant en développement logiciel et applicatif. Travaille par des technologies comme: HTML/CSS/JavaScript, Python,Java, et React. Passionné par la création d'applications interactives et la résolution de problèmes complexes grâce au code.
       </p>
     </div>
 
-    {/* Designer */}
+    {/* Designer du Background */}
     <div className="relative flex flex-col items-center text-center group max-w-[500px] px-4 py-4">
       <div className="relative w-64 h-64 shadow-[0_0_30px_rgba(255,215,0,0.4)] rounded-full overflow-hidden border-[6px] border-transparent transition-all duration-500 group-hover:-rotate-3 group-hover:scale-110 group-hover:border-yellow-400">
-        <img src={designerImage} alt="Designer" className="w-full h-full object-cover" />
+        <img src={designerImage} alt="Designer du Background" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
         <div className="absolute inset-0 rounded-full border-[4px] border-yellow-400 opacity-50 animate-pulse"></div>
+        {/* Titre sur l'image */}
+        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-white text-sm font-semibold px-4 py-1 rounded-full shadow-lg">
+          Designer des Backgrounds
+        </div>
       </div>
       <h3 className="mt-6 text-3xl font-bold text-white group-hover:text-yellow-400 transition-all duration-300">
         Mohamed Idlaassri
       </h3>
-      <div className="flex gap-4 mt-4">
-        {/* Liens vers les réseaux sociaux */}
-        <a href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer">
-          <FaLinkedin className="text-blue-500 hover:text-blue-400 text-2xl" />
-        </a>
-        <a href="https://github.com/your-github" target="_blank" rel="noopener noreferrer">
-          <FaGithub className="text-gray-400 hover:text-gray-300 text-2xl" />
-        </a>
-        <a href="mailto:youremail@example.com">
-          <IoMail className="text-red-500 hover:text-red-400 text-2xl" />
-        </a>
-      </div>
       <p className="mt-4 text-white text-lg text-justify">
-        Étudiant en développement logiciel et applicatif. Maitrise des technologies comme Java,python, HTML/CSS/js. Passionné par le design d'interfaces utilisateur et la création d'expériences visuelles intuitives.
+       Étudiant en développement logiciel et applicatif. Maitrise des technologies comme Java,python, HTML/CSS/js. Passionné par le design d'interfaces utilisateur et la création d'expériences visuelles intuitives.
       </p>
     </div>
   </div>
 </div>
+
 
 
 
