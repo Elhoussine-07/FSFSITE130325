@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#020817];
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black/30;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-blue-700;
+}
+
+/* Custom styles */
+.glass-effect {
+  @apply bg-black/30 backdrop-blur-sm border border-white/10;
+}
+
+.card-hover {
+  @apply hover:border-blue-500/50 transition-all duration-300;
+}
+
+.blue-glow {
+  @apply hover:shadow-lg hover:shadow-blue-500/20;
+}
+
+.stats-number {
+  @apply text-4xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent;
+}
+
+.year-title {
+  @apply text-3xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent;
+}
+
+.title-glow {
+  text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+}
+.stats-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 12px;
+  transition: transform 0.3s ease-in-out;
+}
+.stats-card:hover {
+  transform: scale(1.05);
+}
+.stats-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+.year-title {
+  @apply text-4xl font-bold text-center mb-16;
+  background: linear-gradient(120deg, #4f46e5, #3b82f6, #60a5fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+}
+
+.year-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -12px; /* Éloigne la lumière du texte */
+  width: 40%; /* Garde une lumière concentrée */
+  height: 6px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: translateX(-50%);
+  opacity: 0.8;
+  filter: blur(4px); /* Un peu plus de flou pour adoucir */
+}
+
+.glow-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -15px; /* Éloigne la lumière du texte */
+  width: 50%; /* Largeur ajustable de la lumière */
+  height: 8px; /* Hauteur de la lumière */
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 10%, rgba(255, 255, 255, 0) 80%);
+  transform: translateX(-50%);
+  opacity: 0.8;
+  filter: blur(5px); /* Adoucit l'effet */
+  pointer-events: none;
+}
