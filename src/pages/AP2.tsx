@@ -62,7 +62,6 @@ export function AP2() {
 
   return (
     <div className="min-h-screen text-white" style={{
-      backgroundImage: `url(${backgroundpage})`, // Remplace par l'URL de ton image
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     }}>
@@ -79,7 +78,7 @@ export function AP2() {
           </div>
 
           <h1 className="year-title">
-            Deuxième Année (AP2)
+            Deuxième Année : AP2
           </h1>
 
           <div className="space-y-16">

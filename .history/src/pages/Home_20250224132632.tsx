@@ -7,7 +7,7 @@ import { useEffect,useState } from 'react';
 import { useSpring, animated } from 'react-spring'; 
 import backgroundImage from "/backgrounfsf.jfif"; 
 import mobile_img from "/mobilebackground.jfif"
-import logoFSF from "/logo.png"
+import logoFSF from "/logo.jpg"
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 import developerImage from "/img3.jpg"; // Image du développeur
@@ -44,13 +44,7 @@ const [backgroundImage, setBackgroundImage] = useState("/backgrounfsf.jfif");
     };
   }, []); // Se déclenche une seule fois lors du premier rendu
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveStudents(Math.floor(Math.random() * (30 - 10 + 1) + 10));
-    }, 4000);
 
-    return () => clearInterval(interval); // Nettoyage pour éviter les fuites de mémoire
-  }, []);
 
   return (
     <div className="min-h-screen bg-[#020817] text-white">
@@ -135,9 +129,9 @@ const [backgroundImage, setBackgroundImage] = useState("/backgrounfsf.jfif");
                 <Users className="h-12 w-12 text-blue-400" />
                 <div>
                   <h3 className="stats-number">
-                  <animated.span>
-                 {props.number.to((n) => Math.floor(n))}
-                </animated.span>
+                    <animated.span>
+                      {props.number.interpolate(n => Math.floor(n))}
+                    </animated.span>
                   </h3>
                   <p className="text-lg text-gray-300 mt-2">Étudiants Actifs</p>
                 </div>

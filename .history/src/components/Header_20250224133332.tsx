@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logofsf from "../Logofsf.jpeg";
-import logoFSF from "/logo.png"
+import logoFSF from "/logo."
 
 export function Header() {
   return (

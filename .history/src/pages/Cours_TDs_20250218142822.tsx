@@ -39,7 +39,8 @@ export function CourseMaterials() {
       const module = modul[md].find((mod: { code: string; }) => mod.code === moduleParam);
       if (module && module.details[selectedType] && module.details[selectedType].googleDriveFolderId) {
         const folderId = module.details[selectedType].googleDriveFolderId;
-        const apiKey = "AIzaSyACQLVbDM6D2wEdDWVzWyrA1Ig9p8ujluk"
+        const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+        // Remplace par ta clé API
         const query = encodeURIComponent(`'${folderId}' in parents`);
         const url = `https://www.googleapis.com/drive/v3/files?q=${query}&key=${apiKey}&fields=files(id,name,mimeType)`;
 

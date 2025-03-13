@@ -7,7 +7,7 @@ import { useEffect,useState } from 'react';
 import { useSpring, animated } from 'react-spring'; 
 import backgroundImage from "/backgrounfsf.jfif"; 
 import mobile_img from "/mobilebackground.jfif"
-import logoFSF from "/logo.png"
+import logoFSF from "/logo.jfif"
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 import developerImage from "/img3.jpg"; // Image du développeur
@@ -44,13 +44,7 @@ const [backgroundImage, setBackgroundImage] = useState("/backgrounfsf.jfif");
     };
   }, []); // Se déclenche une seule fois lors du premier rendu
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveStudents(Math.floor(Math.random() * (30 - 10 + 1) + 10));
-    }, 4000);
 
-    return () => clearInterval(interval); // Nettoyage pour éviter les fuites de mémoire
-  }, []);
 
   return (
     <div className="min-h-screen bg-[#020817] text-white">
@@ -87,7 +81,7 @@ const [backgroundImage, setBackgroundImage] = useState("/backgrounfsf.jfif");
       {/* Overlay pour lisibilité */}
       <div className="absolute inset-0 bg-black/40"></div>  
 
-      {/* Contenu principal */}
+      {/* Contenu principal */
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -135,9 +129,9 @@ const [backgroundImage, setBackgroundImage] = useState("/backgrounfsf.jfif");
                 <Users className="h-12 w-12 text-blue-400" />
                 <div>
                   <h3 className="stats-number">
-                  <animated.span>
-                 {props.number.to((n) => Math.floor(n))}
-                </animated.span>
+                    <animated.span>
+                      {props.number.interpolate(n => Math.floor(n))}
+                    </animated.span>
                   </h3>
                   <p className="text-lg text-gray-300 mt-2">Étudiants Actifs</p>
                 </div>
@@ -162,7 +156,7 @@ const [backgroundImage, setBackgroundImage] = useState("/backgrounfsf.jfif");
 <section id="courses" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="relative text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent glow-title">
-            Cours de Formation
+            Nos Cours
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -249,6 +243,54 @@ const [backgroundImage, setBackgroundImage] = useState("/backgrounfsf.jfif");
       
 
   
+      <div className="py-20 bg-black/20 border-t border-white/10">
+  {/* Titre Introduction */}
+  <div className="text-center mb-16">
+    <h2 className="relative text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent glow-title">
+      Contributeurs du Site FSF
+    </h2>
+  </div>
+
+  <div className="flex flex-col md:flex-row justify-center items-center gap-20">
+    {/* Développeur Web */}
+    <div className="relative flex flex-col items-center text-center group max-w-[500px] px-4 py-4">
+      <div className="relative w-64 h-64 shadow-[0_0_30px_rgba(0,150,255,0.4)] rounded-full overflow-hidden border-[6px] border-transparent transition-all duration-500 group-hover:rotate-3 group-hover:scale-110 group-hover:border-blue-500">
+        <img src={developerImage} alt="Développeur Web" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div className="absolute inset-0 rounded-full border-[4px] border-blue-500 opacity-50 animate-pulse"></div>
+        {/* Titre sur l'image */}
+        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-sm font-semibold px-4 py-1 rounded-full shadow-lg">
+          Développeur du Site
+        </div>
+      </div>
+      <h3 className="mt-6 text-3xl font-bold text-white group-hover:text-blue-400 transition-all duration-300">
+        Lahoussine El Hossni
+      </h3>
+      <p className="mt-4 text-white text-lg text-justify">
+      Étudiant en développement logiciel et applicatif. Travaille par des technologies comme: HTML/CSS/JavaScript, Python,Java, et React. Passionné par la création d'applications interactives et la résolution de problèmes complexes grâce au code.
+      </p>
+    </div>
+
+    {/* Designer du Background */}
+    <div className="relative flex flex-col items-center text-center group max-w-[500px] px-4 py-4">
+      <div className="relative w-64 h-64 shadow-[0_0_30px_rgba(255,215,0,0.4)] rounded-full overflow-hidden border-[6px] border-transparent transition-all duration-500 group-hover:-rotate-3 group-hover:scale-110 group-hover:border-yellow-400">
+        <img src={designerImage} alt="Designer du Background" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div className="absolute inset-0 rounded-full border-[4px] border-yellow-400 opacity-50 animate-pulse"></div>
+        {/* Titre sur l'image */}
+        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-white text-sm font-semibold px-4 py-1 rounded-full shadow-lg">
+          Designer des Backgrounds
+        </div>
+      </div>
+      <h3 className="mt-6 text-3xl font-bold text-white group-hover:text-yellow-400 transition-all duration-300">
+        Mohamed Idlaassri
+      </h3>
+      <p className="mt-4 text-white text-lg text-justify">
+       Étudiant en développement logiciel et applicatif. Maitrise des technologies comme Java,python, HTML/CSS/js. Passionné par le design d'interfaces utilisateur et la création d'expériences visuelles intuitives.
+      </p>
+    </div>
+  </div>
+</div>
 
 
 

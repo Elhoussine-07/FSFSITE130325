@@ -44,13 +44,7 @@ const [backgroundImage, setBackgroundImage] = useState("/backgrounfsf.jfif");
     };
   }, []); // Se déclenche une seule fois lors du premier rendu
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveStudents(Math.floor(Math.random() * (30 - 10 + 1) + 10));
-    }, 4000);
 
-    return () => clearInterval(interval); // Nettoyage pour éviter les fuites de mémoire
-  }, []);
 
   return (
     <div className="min-h-screen bg-[#020817] text-white">

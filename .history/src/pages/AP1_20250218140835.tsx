@@ -3,7 +3,8 @@ import { ChevronRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { moduleData } from "../data/modules"; 
+import { moduleData } from "../data/modules";
+import backgroundpage from "/backgroundPages.jfif"; 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -73,6 +74,7 @@ export function AP1() {
 
   return (
       <div className="min-h-screen text-white" style={{
+        backgroundImage: `url(${backgroundpage})`, // Remplace par l'URL de ton image
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}>
@@ -89,7 +91,7 @@ export function AP1() {
           </div>
 
           <h1 className="year-title">
-           Première Année : AP1
+            Première Année (AP1)
           </h1>
 
           <div className="space-y-16">
@@ -110,9 +112,11 @@ export function AP1() {
             </section>
           </div>
         </div>
+        let a=false;
+        {<Footer /> && a}
       </main>
 
-      <Footer />
+      
     </div>
   );
 }

@@ -47,7 +47,7 @@ const [backgroundImage, setBackgroundImage] = useState("/backgrounfsf.jfif");
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveStudents(Math.floor(Math.random() * (30 - 10 + 1) + 10));
-    }, 4000);
+    }, 1000);
 
     return () => clearInterval(interval); // Nettoyage pour éviter les fuites de mémoire
   }, []);
